@@ -1,16 +1,15 @@
 const getRow = document.getElementById("row");
-const nexId = document.getElementById("button-next");
-const prevId = document.getElementById("button-prev");
+// const nexId = document.getElementById("button-next");
+// const prevId = document.getElementById("button-prev");
 
 var skip = 0;
-var limit = 5;
+var current = 20;
+var limit = 10;
 var slide = false;
 var total;
 
+
 const getAllDataProducts = async () => {
-    console.log("ini skip", skip);
-    console.log("ini limit", limit);
-    console.log("ini total ", total);
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -18,6 +17,7 @@ const getAllDataProducts = async () => {
     }
     const response = await axios.get("https://dummyjson.com/products", config);
     total = response.data.total;
+    await AddPagination(500, limit);
     const getData = response.data.products
         .slice(skip, limit)
         .map((product, index) => {
@@ -59,32 +59,32 @@ const getAllDataProducts = async () => {
 
 getAllDataProducts();
 
-nexId.addEventListener("click", () => {
-    slide = true;
-    if (skip == 95) {
-        skip = 95;
-        limit = 100;
-    } else {
-        skip += 5;
-        limit += 5
-    }
-    getAllDataProducts();
-    // window.location.reload()
-})
+// nexId.addEventListener("click", () => {
+//     slide = true;
+//     if (skip == 95) {
+//         skip = 95;
+//         limit = 100;
+//     } else {
+//         skip += 5;
+//         limit += 5
+//     }
+//     getAllDataProducts();
+//     // window.location.reload()
+// })
 
 
-prevId.addEventListener("click", async () => {
-    slide = true;
-    if (skip == 0 && limit == 5) {
-        skip = 0;
-        limit = 5;
-    } else {
-        skip -= 5;
-        limit -= 5;
-    }
-    getAllDataProducts();
-    // window.location.reload()
-})
+// prevId.addEventListener("click", async () => {
+//     slide = true;
+//     if (skip == 0 && limit == 5) {
+//         skip = 0;
+//         limit = 5;
+//     } else {
+//         skip -= 5;
+//         limit -= 5;
+//     }
+//     getAllDataProducts();
+//     // window.location.reload()
+// })
 
 
 
